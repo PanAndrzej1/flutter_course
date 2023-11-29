@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,6 +31,34 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  final List<int> ballNumber = List.generate(5, (index) => index + 1);
+   List<String> ballLista = [];
+final Random rand=Random();
+ String ball="assets/ball1.png";
+
+ @override
+  void initState() {
+    utworzListePilek();
+    getRandomN();
+    super.initState();
+  }
+void getRandomN(){
+  int numerek=rand.nextInt(5);
+  print(numerek);
+  print(ballLista.toString());
+  setState(() {
+    ball = ballLista[numerek];
+  });
+}
+
+void utworzListePilek(){
+  for (var ball in ballNumber){
+    ballLista.add("assets/ball$ball.png");
+  
+  }
+
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,18 +67,20 @@ class _MyHomeState extends State<MyHome> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('data'),
+                Text('Ask My Anything...',textAlign: TextAlign.center,  
+                style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 40) ),
                 Image.asset(
-                  "assets/ball1.png",
-                  width: 200,
-                  height: 200,
+                  ball,
+                  width: 300,
+                  height: 300,
                 ),
                 ElevatedButton( style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.brown,
-                  textStyle: TextStyle(fontSize: 38),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.blue,
+                  textStyle: TextStyle(fontSize: 38)
+          ,
                 ),
-                onPressed: (){},
+                onPressed: (){getRandomN();},
                   child: const Text("Przycisk"),)
               ]),
         ));
